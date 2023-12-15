@@ -1,0 +1,12 @@
+module co.frontend.Hii {
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires javafx.graphics;
+    requires com.fasterxml.jackson.databind;
+    requires org.json;
+    requires java.desktop;
+    requires java.net.http;
+
+    opens co.frontend.Hii to javafx.fxml;
+    exports co.frontend.Hii;
+}

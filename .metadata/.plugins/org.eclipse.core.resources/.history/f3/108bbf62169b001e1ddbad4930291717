@@ -1,0 +1,425 @@
+package co.bel.frontend;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+public class MainController {
+
+	@FXML
+	Button loginButton;
+
+	@FXML
+	private VBox itemsContainer;
+	@FXML
+	private MainPage mainPage;
+
+	@FXML
+	private TextField emailField;
+
+	@FXML
+	private TextField phnoField;
+
+	@FXML
+	private Button registerButton;
+
+	@FXML
+	private PasswordField confirmPasswordField;
+
+	@FXML
+	private Label passwordMatchLabel;
+
+	@FXML
+	private PasswordField passwordField;
+
+	@FXML
+	private TextField usernameField;
+
+	@FXML
+	private Button browseProductsButton;
+
+	@FXML
+	private Label statusLabel;
+
+	@FXML
+	private GridPane produtGrid;
+
+	@FXML
+	private Text consumerIdLabel;
+
+	@FXML
+	private Text orderIdLabel;
+
+	@FXML
+	private Text itemsLabel;
+
+	@FXML
+	private Text timestampLabel;
+
+	@FXML
+	private Text priceLabel;
+
+	@FXML
+	private int consumerId;
+//    @FXML
+//    private Label statusLabel1;
+	@FXML
+	Label consumerIdLabel1;
+
+	@FXML
+	Label consumerNameLabel;
+
+	@FXML
+	private TableView<Item> itemTableView;
+
+	@FXML
+	Label emailIdLabel;
+
+	@FXML
+	Label passwordLabel;
+
+	@FXML
+	Label phoneNoLabel;
+
+	public void setMainPage(MainPage mainPage) {
+		this.mainPage = mainPage;
+	}
+
+	public static String nameString;
+	
+	public String getnameString() {
+		return nameString;
+	}
+
+	@FXML
+	private void handleRegisterButtonClick(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Register.fxml"));
+			Parent root = loader.load();
+
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.setTitle("User Registration");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Handle the exception appropriately
+		}
+	}
+
+	@FXML
+	boolean handlelogin() {
+		MainPage mPage = new MainPage();
+		Stage currentStage = null;
+		nameString = usernameField.getText();
+		String pswdString = passwordField.getText();
+		String apiUrl = "http://localhost:8080/ecom1/webapi/consignin/signin";
+
+		String jsonInputString = "{\n" + "    \"phone_no\": \"" + nameString + "\",\n" + "    \"password\": \""
+				+ pswdString + "\"\n" + "}";
+		javafx.collections.ObservableList<javafx.stage.Window> stageList = javafx.stage.Window.getWindows();
+
+//	         Iterate over the windows to find the current stage
+		for (javafx.stage.Window window : stageList) {
+			if (window instanceof Stage) {
+				// Handle the found stage
+				currentStage = (Stage) window;
+				System.out.println("Current Stage Title: " + currentStage.getTitle());
+				// You can now perform operations on the current stage
+//	                 For example: currentStage.close();
+			}
+			try {
+				URL url = new URL(apiUrl);
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("POST");
+				connection.setRequestProperty("Content-Type", "application/json");
+				connection.setDoOutput(true);
+
+				try (OutputStream os = connection.getOutputStream()) {
+					byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+					os.write(input, 0, input.length);
+				}
+
+				int responseCode = connection.getResponseCode();
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+
+					mPage.openHomePage(currentStage);
+					return true;
+				} else {
+					// Handle error response
+					// InputStream errorIn = connection.getErrorStream();
+					// ...
+					statusLabel.setText("Login failed!!!\nPlease check your credentials.");
+					statusLabel.setTextFill(javafx.scene.paint.Color.RED);
+					System.out.println("Error: " + responseCode);
+					return false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	@FXML
+	private void handleregister(ActionEvent event) {
+		nameString = usernameField.getText();
+		String emailString = emailField.getText();
+		String phnoString = phnoField.getText();
+		String pswdString = passwordField.getText();
+		String confirmPassword = confirmPasswordField.getText();
+
+		// Check if any mandatory field is empty
+		if (nameString.isEmpty() || emailString.isEmpty() || phnoString.isEmpty() || pswdString.isEmpty()
+				|| confirmPassword.isEmpty()) {
+			// Display an error message indicating that all fields are mandatory
+			statusLabel.setText("All fields are mandatory. Please fill all the required fields.");
+			statusLabel.setTextFill(javafx.scene.paint.Color.RED);
+			return;
+		}
+
+		String apiUrl = "http://localhost:8080/ecom1/webapi/consumer/createcon";
+		String jsonInputString = "{\n" + "    \"consumer_name\": \"" + nameString + "\",\n" + "    \"email_id\": \""
+				+ emailString + "\",\n" + "    \"phone_no\": \"" + phnoString + "\",\n" + "    \"password\": \""
+				+ pswdString + "\"\n" + "}";
+
+		if (pswdString.equals(confirmPassword)) {
+			// Passwords match
+			passwordMatchLabel.setText("Passwords match");
+			passwordMatchLabel.setTextFill(javafx.scene.paint.Color.GREEN);
+
+			try {
+				URL url = new URL(apiUrl);
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("POST");
+				connection.setRequestProperty("Content-Type", "application/json");
+				connection.setDoOutput(true);
+
+				try (OutputStream os = connection.getOutputStream()) {
+					byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+					os.write(input, 0, input.length);
+				}
+
+				int responseCode = connection.getResponseCode();
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					System.out.println("User Registration successful.");
+					statusLabel.setText("User Id Generated.");
+					statusLabel.setTextFill(javafx.scene.paint.Color.GREEN);
+
+				} else {
+					// Handle error response
+					System.out.println("Error: " + responseCode);
+				}
+
+				try {
+
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+					Parent root = loader.load();
+
+					Stage stage = new Stage();
+					stage.setScene(new Scene(root));
+					stage.setTitle("Login");
+					stage.show();
+
+				} catch (IOException e) {
+					e.printStackTrace();
+					// Handle the exception appropriately
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			// Passwords don't match
+			passwordMatchLabel.setText("Passwords didn't matched. Try again.");
+			passwordMatchLabel.setTextFill(javafx.scene.paint.Color.RED);
+		}
+	}
+
+	public void initializeData(String consumerId, String orderId, String items, String timestamp, String price) {
+		consumerIdLabel.setText(consumerId);
+		orderIdLabel.setText(orderId);
+		itemsLabel.setText(items);
+		timestampLabel.setText(timestamp);
+		priceLabel.setText(price);
+	}
+
+	
+
+//	private void showAlert(String string, String string2, AlertType error) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
+//	@FXML
+//	private void viewProducts(ActionEvent event) {
+//		// Implement the logic for handling the "Browse Products" button click event
+//		// For example, you might open a new window or navigate to a different scene
+//		System.out.println("Button Clicked: Browse Products");
+//	}
+
+//	public void getAccountDetails() {
+//
+//		try {
+//			String apiUrl = "http://localhost:8080/ecom1/webapi/consumer/concon";
+//			String jsonInputString = "{\n" + "    \"phone_no\": \"" + nameString + "\"\n" + "}";
+//
+//			String new_Api = "http://localhost:8080/ecom1/webapi/consumer/getcon";
+//			String response = performPostRequest(apiUrl, jsonInputString);
+//			System.out.println(response);
+//			int res = Integer.parseInt(response);
+//			String jString = "{\n" + "    \"consumer_id\": \"" + res + "\"\n" + "}";
+//			String rewspnse2 = performPostRequest(new_Api, jString);
+//			String consumerId = parseJsonValue(rewspnse2, "consumer_id");
+//			String consumerName = parseJsonValue(rewspnse2, "consumer_name");
+//			String emailId = parseJsonValue(rewspnse2, "email_id");
+//			String password = parseJsonValue(rewspnse2, "password");
+//			String phoneNo = parseJsonValue(rewspnse2, "phone_no");
+//			try {
+//				FXMLLoader loader = new FXMLLoader(getClass().getResource("Profile.fxml"));
+//				Parent root = loader.load();
+//				MainController controller = loader.getController();
+//				setLabels(controller, consumerId, consumerName, emailId, password, phoneNo);
+//				Stage primaryStage = new Stage();
+//				primaryStage.setScene(new Scene(root));
+//				primaryStage.show();
+//
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			// Handle the exception as needed
+//		}
+//	}
+//
+//	public void setLabels(MainController controller, String consumerId, String consumerName, String emailId,
+//			String password, String phoneNo) {
+//
+//		controller.consumerIdLabel1.setText(consumerId);
+//		controller.consumerNameLabel.setText(consumerName);
+//		controller.emailIdLabel.setText(emailId);
+//		controller.passwordLabel.setText(password);
+//		controller.phoneNoLabel.setText(phoneNo);
+//	}
+//
+//	private String parseJsonValue(String json, String key) {
+//		int startIndex = json.indexOf("\"" + key + "\":") + key.length() + 3;
+//		int endIndex = json.indexOf(",", startIndex);
+//		if (endIndex == -1) {
+//			endIndex = json.indexOf("}", startIndex);
+//		}
+//		return json.substring(startIndex, endIndex).replace("\"", "");
+//
+//	}
+//
+//	private String performPostRequest(String apiUrl, String jsonInput) throws IOException {
+//		URL url = new URL(apiUrl);
+//		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//		connection.setRequestMethod("POST");
+//		connection.setRequestProperty("Content-Type", "application/json");
+//		connection.setDoOutput(true);
+//
+//		try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+//			byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
+//			outputStream.write(input, 0, input.length);
+//		}
+//
+//		int responseCode = connection.getResponseCode();
+//
+//		if (responseCode == HttpURLConnection.HTTP_OK) {
+//			try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+//				StringBuilder response = new StringBuilder();
+//				String line;
+//
+//				while ((line = reader.readLine()) != null) {
+//					response.append(line);
+//				}
+//
+//				return response.toString().trim();
+//			}
+//		} else {
+//			System.out.println("Error: " + responseCode);
+//			throw new IOException("POST request failed. HTTP response code: " + responseCode);
+//		}
+//	}
+
+	@FXML
+	private void onGoBackClicked() {
+		// Implement logic to go back to the homepage or perform other actions
+		// For example, you can close the current stage
+		Stage stage = (Stage) consumerIdLabel.getScene().getWindow();
+		stage.close();
+	}
+
+	@FXML
+	private void handleCheckoutClicked(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("cart_ex.fxml"));
+			Parent root = loader.load();
+
+			MainController cartController = loader.getController();
+			// Pass data or perform any necessary setup in CartController
+
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Shopping Cart");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Handle the exception as needed
+		}
+	}
+
+	// Add a method to handle order details
+	@FXML
+	private void handleOrderDetailsClicked(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Orderdetails.fxml"));
+			Parent root = loader.load();
+
+			MainController orderController = loader.getController();
+			// Assuming you have the data, replace these placeholders with actual data
+			// orderController.initializeData("123", "456", "Item1, Item2", "2023-12-07
+			// 12:34:56", "$100.00");
+
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Order Details");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Handle the exception as needed
+		}
+	}
+}

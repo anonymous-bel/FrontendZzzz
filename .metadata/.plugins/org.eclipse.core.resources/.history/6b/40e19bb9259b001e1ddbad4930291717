@@ -1,0 +1,47 @@
+package co.bel.frontend;
+
+public class CartItem {
+
+	@FXML
+	private VBox cartItemsContainer;
+
+	@FXML
+	private void onCartMenuClicked(ActionEvent event) {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("cart_ex.fxml"));
+	        Parent root = loader.load();
+
+	        // Get the controller
+	        HomepageController controller = loader.getController();
+
+	        // Simulate the response data (replace this with actual API call)
+	        List<CartItem> cartItems = getCartItemsFromAPI();
+
+	        // Populate the VBox with response data
+	        for (CartItem cartItem : cartItems) {
+	            Text productName = new Text(cartItem.getItem().getItemName());
+	            Text quantity = new Text(String.valueOf(cartItem.getQuantity()));
+	            Text price = new Text(String.valueOf(cartItem.getItem().getItemPrice()));
+	            Text total = new Text(String.valueOf(cartItem.getQuantity() * cartItem.getItem().getItemPrice()));
+
+	            // Add the Text nodes to the VBox
+	            controller.cartItemsContainer.getChildren().addAll(productName, quantity, price, total);
+
+	            // Set text alignment
+	            productName.setTextAlignment(TextAlignment.CENTER);
+	            quantity.setTextAlignment(TextAlignment.CENTER);
+	            price.setTextAlignment(TextAlignment.CENTER);
+	            total.setTextAlignment(TextAlignment.CENTER);
+	        }
+
+	        Stage stage = new Stage();
+	        stage.setScene(new Scene(root));
+	        stage.setTitle("Cart Details");
+	        stage.show();
+	    } catch (IOException e) {
+	        System.err.println("Error loading cart_ex.fxml: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	}
+
+}

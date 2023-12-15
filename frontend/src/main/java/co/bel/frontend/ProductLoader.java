@@ -1,0 +1,36 @@
+package co.bel.frontend;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
+public class ProductLoader {
+    public List<Product> loadProductsFromServer(String serverUrl) throws IOException {
+        // Make an HTTP request to fetch product data from the server
+        URL url = new URL(serverUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        // Read the response
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+
+        // Parse the response and create a list of Product objects
+        // You need to implement a method to parse your specific server response
+        return parseProductData(response.toString());
+    }
+
+    private List<Product> parseProductData(String response) {
+        // Implement parsing logic based on your server response format
+        // Return a list of Product objects
+        return null;
+    }
+    
+}

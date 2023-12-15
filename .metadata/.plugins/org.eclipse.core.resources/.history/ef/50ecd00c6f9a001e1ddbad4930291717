@@ -1,0 +1,104 @@
+//package co.frontend.Hii;
+//
+//import javafx.event.ActionEvent;
+//import javafx.fxml.FXML;
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.Node;
+//import javafx.scene.Parent;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Alert.AlertType;
+//import javafx.stage.Stage;
+//
+//import java.io.IOException;
+
+//public class HomepageController extends in{
+//
+//    // ... existing code ...
+//
+////    @FXML
+////    private void onLogoutClicked(ActionEvent event) {
+////        // Implement the logout logic here
+////        // For example, you might show a confirmation dialog and then proceed with logout
+////
+////        // Assuming you want to close the current window and open a login window
+////        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+////        currentStage.close();
+////
+////        try {
+////            FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+////            Parent root = loader.load();
+////
+////            Stage loginStage = new Stage();
+////            loginStage.setTitle("Login");
+////            loginStage.setScene(new Scene(root));
+////            loginStage.show();
+////
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////            // Handle the exception, e.g., show an error message to the user
+////            showAlert("Error", "Failed to load Login.fxml. Please try again.", AlertType.ERROR);
+////        }
+////    }
+////
+////	private void showAlert(String string, String string2, AlertType error) {
+////		// TODO Auto-generated method stub
+////		
+////	}
+////
+////    // ... other methods ...
+////}
+//
+//
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import javafx.fxml.FXML;
+//import javafx.fxml.Initializable;
+//import javafx.scene.control.TableColumn;
+//import javafx.scene.control.TableView;
+//
+//import java.io.BufferedReader;
+//import java.io.InputStreamReader;
+//import java.net.HttpURLConnection;
+//import java.net.URL;
+//import java.util.List;
+//import java.util.ResourceBundle;
+//
+//public class HomepageController implements Initializable {
+//
+// 
+//
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        try {
+//            // Make an HTTP GET request to the specified URL
+//            URL apiUrl = new URL("http://localhost:8080/ecom1/webapi/item");
+//            HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+//            connection.setRequestMethod("GET");
+//
+//            // Read the JSON response
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//            StringBuilder jsonContent = new StringBuilder();
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                jsonContent.append(line);
+//            }
+//            reader.close();
+//
+//            // Parse JSON using Jackson ObjectMapper
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            List<Item> items = objectMapper.readValue(jsonContent.toString(), new com.fasterxml.jackson.core.type.TypeReference<List<Item>>() {});
+//            // Display tems in the TableView
+//            TableColumn<Item, Integer> itemIdColumn = new TableColumn<>("Item ID");
+//            itemIdColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("item_id"));
+//            TableColumn<Item, String> itemNameColumn = new TableColumn<>("Item Name");
+//            itemNameColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("item_name"));
+//            TableColumn<Item, Double> itemPriceColumn = new TableColumn<>("Item Price");
+//            itemPriceColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("item_price"));
+//            itemTableView.getColumns().addAll(itemIdColumn, itemNameColumn, itemPriceColumn);
+//            itemTableView.getItems().addAll(items);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+////    }
+//}
+

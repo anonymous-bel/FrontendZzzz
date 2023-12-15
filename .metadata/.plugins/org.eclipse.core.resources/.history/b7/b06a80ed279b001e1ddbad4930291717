@@ -1,0 +1,34 @@
+package co.bel.frontend;
+
+public class CartItemController {
+
+    @FXML
+    private GridPane cartGridPane;
+
+    // Other existing methods...
+
+    public void displayCartItems(List<CartItem> cartItems) {
+        int rowIndex = 1; // Start from row 1 as row 0 is for column headers
+
+        for (CartItem cartItem : cartItems) {
+            addTextToGrid(cartItem.getItem().getItemName(), 0, rowIndex);
+            addTextToGrid(String.valueOf(cartItem.getQuantity()), 1, rowIndex);
+            addTextToGrid(String.valueOf(cartItem.getItem().getItemPrice()), 2, rowIndex);
+            addTextToGrid(String.valueOf(cartItem.getQuantity() * cartItem.getItem().getItemPrice()), 3, rowIndex);
+
+            rowIndex++;
+        }
+
+        // Calculate overall price and display it
+        double overallPrice = cartItems.stream()
+                .mapToDouble(item -> item.getQuantity() * item.getItem().getItemPrice())
+                .sum();
+        addTextToGrid("Overall Price: " + overallPrice, 2, rowIndex);
+    }
+
+    private void addTextToGrid(String text, int columnIndex, int rowIndex) {
+        Text newText = new Text(text);
+        newText.wrappingWidthProperty().setValue(100); // Adjust the wrapping width as needed
+        cartGridPane.add(newText, columnIndex, rowIndex);
+    }
+}
