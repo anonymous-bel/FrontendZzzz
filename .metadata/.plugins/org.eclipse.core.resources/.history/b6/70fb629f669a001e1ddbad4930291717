@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.frontend.Hii.MainController">
+    <GridPane alignment="CENTER" prefHeight="94.0" prefWidth="417.0">
+        <Label prefHeight="17.0" prefWidth="168.0" text="Consumer ID:" />
+        <Label fx:id="consumerIdLabel1" prefHeight="17.0" prefWidth="99.0"  textAlignment="CENTER" GridPane.columnIndex="1" />
+
+        <Label prefHeight="17.0" prefWidth="167.0" text="Consumer Name:" GridPane.rowIndex="1" />
+        <Label fx:id="consumerNameLabel" prefHeight="17.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Email ID:" GridPane.rowIndex="3" />
+        <Label fx:id="emailIdLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Password:" GridPane.rowIndex="5" />
+        <Label fx:id="passwordLabel" prefHeight="17.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <Label text="Phone Number:" GridPane.rowIndex="6" />
+        <Label fx:id="phoneNoLabel" prefHeight="17.0" prefWidth="129.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+</VBox>

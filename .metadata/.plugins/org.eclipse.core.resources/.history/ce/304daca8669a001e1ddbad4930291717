@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.frontend.Hii.MainController">
+   <children>
+      <VBox prefHeight="444.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <!-- Your existing UI elements -->
+                   <Label alignment="TOP_CENTER" prefHeight="81.0" prefWidth="601.0" text="User Registration" textAlignment="CENTER" textFill="#787c83">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Pristina" size="37.0" />
+               </font></Label>
+            <TextField fx:id="usernameField" prefHeight="25.0" prefWidth="172.0" promptText="Enter your Name" style="-fx-blend-mode: multiply;">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin></TextField>
+            <TextField fx:id="emailField" promptText="Enter your Email" style="-fx-blend-mode: multiply;">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin></TextField>
+                <TextField fx:id="phnoField" promptText="Enter your Phone No" style="-fx-blend-mode: multiply;">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin></TextField>
+
+            <PasswordField fx:id="passwordField" promptText="Enter your Password" style="-fx-blend-mode: multiply;">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin>
+            </PasswordField>
+            <PasswordField fx:id="confirmPasswordField" promptText="Re-Enter your Password" style="-fx-blend-mode: multiply;">
+               <VBox.margin>
+                  <Insets left="200.0" right="200.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Button onAction="#handleregister" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: grey; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);" text="Register">
+               <VBox.margin>
+                  <Insets left="200.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Button>
+			<Label fx:id="statusLabel" graphicTextGap="2.0" prefHeight="32.0" prefWidth="656.0" textAlignment="CENTER" textFill="#00FF00">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="MV Boli" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding></Label>
+
+            <Label fx:id="passwordMatchLabel" prefHeight="31.0" prefWidth="656.0" text="" textFill="#00FF00">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
