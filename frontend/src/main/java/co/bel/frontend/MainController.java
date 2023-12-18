@@ -1,32 +1,19 @@
 package co.bel.frontend;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -91,8 +78,7 @@ public class MainController {
 
 	@FXML
 	private int consumerId;
-//    @FXML
-//    private Label statusLabel1;
+
 	@FXML
 	Label consumerIdLabel1;
 
@@ -110,6 +96,8 @@ public class MainController {
 
 	@FXML
 	Label phoneNoLabel;
+	
+
 
 	public void setMainPage(MainPage mainPage) {
 		this.mainPage = mainPage;

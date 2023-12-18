@@ -12,6 +12,13 @@ public class Item {
 
 	private double item_price;
 	
+	public Item() {}
+	
+	public Item(int itemId, String itemName, double itemPrice) {
+		item_id = itemId;
+		item_name = itemName;
+		item_price = itemPrice;
+	}
 	public String getItem_name() {
 		return item_name;
 	}

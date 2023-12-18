@@ -14,11 +14,15 @@
                 <menus>
                     <Menu mnemonicParsing="false" text="Home" />
                     <Menu mnemonicParsing="false"  text="Cart">
-                    <items>
+                    	<items>
                             <MenuItem mnemonicParsing="false" onAction="#onCartMenuClicked" text="Cart Details" />  
-                      </items>
-                      </Menu>
-                    <Menu mnemonicParsing="false"  text="Order" />
+                      	</items>
+                    </Menu>
+                    <Menu mnemonicParsing="false"  text="Order" >
+                    	<items>
+                            <MenuItem mnemonicParsing="false" onAction="#onOrderMenuClicked" text="Order Details" />  
+                      	</items>
+                    </Menu>
                     <Menu mnemonicParsing="false" text="Profile">
                         <items>
                             <MenuItem mnemonicParsing="false" onAction="#getAccountDetails" text="Account Details" />

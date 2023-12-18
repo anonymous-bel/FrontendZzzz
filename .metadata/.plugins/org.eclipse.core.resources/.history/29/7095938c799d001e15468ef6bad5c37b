@@ -1,0 +1,165 @@
+package co.bel.frontend;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+public class CartItemController {
+
+    @FXML
+    private GridPane cartGridPane;
+
+    // Other existing methods...
+    
+    public static String namew;
+    
+    public String getName() {
+		MainController hmv = new MainController();
+		namew = hmv.getnameString();
+		return namew;
+	}
+
+    public void displayCartItems(List<CartItem> cartItems) throws IOException {
+        int rowIndex = 1; // Start from row 1 as row 0 is for column headers
+      
+        for (CartItem cartItem : cartItems) {
+            addTextToGrid(cartItem.getItem().getItem_name(), 0, rowIndex);
+            addTextToGrid(String.valueOf(cartItem.getQuantity()), 1, rowIndex);
+            addTextToGrid("₹ " + String.valueOf(cartItem.getItem().getItem_price()), 2, rowIndex);
+            addTextToGrid("₹ " + String.valueOf(cartItem.getQuantity() * cartItem.getItem().getItem_price()), 3, rowIndex);
+
+            rowIndex++;
+        }
+
+        // Calculate overall price and display it
+        double overallPrice = cartItems.stream()
+                .mapToDouble(item -> item.getQuantity() * item.getItem().getItem_price())
+                .sum();
+        addTextToGrid("Overall Price: ", 2, rowIndex);
+        addTextToGrid("₹ " + String.valueOf(overallPrice), 3, rowIndex);
+    }
+
+    private void addTextToGrid(String text, int columnIndex, int rowIndex) {
+        Text newText = new Text(text);
+        newText.wrappingWidthProperty().setValue(100); // Adjust the wrapping width as needed
+        cartGridPane.add(newText, columnIndex, rowIndex);
+        System.out.println("Text added to GridPane: " + text + ", Column: " + columnIndex + ", Row: " + rowIndex);
+    }
+    
+    
+    public int getConsumerId() {
+		String apiUrl = "http://localhost:8080/ecom1/webapi/consumer/concon";
+		namew = getName();
+		String jsonInputString = "{\n" + "    \"phone_no\": \"" + namew + "\"\n" + "}";
+		String response = null;
+		try {
+			response = performPostRequest(apiUrl, jsonInputString);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(response);
+		int res = Integer.parseInt(response);
+		return res;
+	}
+    
+    private String performPostRequest(String apiUrl, String jsonInput) throws IOException {
+		URL url = new URL(apiUrl);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("POST");
+		connection.setRequestProperty("Content-Type", "application/json");
+		connection.setDoOutput(true);
+
+		try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+			byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
+			outputStream.write(input, 0, input.length);
+		}
+
+		int responseCode = connection.getResponseCode();
+
+		if (responseCode == HttpURLConnection.HTTP_OK) {
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+				StringBuilder response = new StringBuilder();
+				String line;
+
+				while ((line = reader.readLine()) != null) {
+					response.append(line);
+				}
+
+				return response.toString().trim();
+			}
+		} else {
+			System.out.println("Error: " + responseCode);
+			throw new IOException("POST request failed. HTTP response code: " + responseCode);
+		}
+	}
+
+	@FXML
+	private void handleCheckoutClicked(ActionEvent event) throws IOException {
+		int consumerId = getConsumerId();
+
+		// API endpoint
+		String apiUrl = "http://localhost:8080/ecom1/webapi/order/createorditem";
+
+		// Prepare the JSON input string
+		String jsonInputString = "{\n" + "    \"consumerId\": " + consumerId + "\n" + "}";
+
+		// Make the POST request
+		try {
+			URL url = new URL(apiUrl);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+			// Set the request method to POST
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setDoOutput(true);
+
+			// Write the JSON input string to the connection's output stream
+			try (OutputStream os = connection.getOutputStream()) {
+				byte[] input = jsonInputString.getBytes("utf-8");
+				os.write(input, 0, input.length);
+			}
+
+			// Get the response code
+			int responseCode = connection.getResponseCode();
+
+			// Read the response
+//	        if (responseCode == HttpURLConnection.HTTP_OK) {
+//	            try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+//	                StringBuilder response = new StringBuilder();
+//	                String line;
+//
+//	                while ((line = in.readLine()) != null) {
+//	                    response.append(line);
+//	                }
+//					
+//	                // Handle the response as needed (print it, parse it, etc.)
+			boolean response = false;
+			System.out.println(response);
+//	            }
+//	        } else {
+//	            System.out.println("POST request failed. Response Code: " + responseCode);
+//	        }
+
+			connection.disconnect();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+    
+}

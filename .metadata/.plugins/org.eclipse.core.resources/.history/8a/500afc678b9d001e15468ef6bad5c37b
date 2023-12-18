@@ -1,0 +1,118 @@
+package co.bel.frontend;
+
+import java.io.IOException;
+import java.util.List;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+
+public class OrderController {
+
+    
+    @FXML
+	private void onOrderMenuClicked(ActionEvent event) {
+    	try {
+			// Assume you have a method to fetch data from the URL and parse it into a list
+			// of CartItems
+			List<OrderItem> orderItems = fetchDataFromUrl("http://localhost:8080/ecom1/webapi/order/checkout", getConsumerId());
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Orderdetails.fxml"));
+			Parent root = loader.load();
+
+			CartItemController controller = loader.getController();
+			System.out.println(orderItems);
+			controller.displayCartItems(orderItems);
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.setTitle("Order Details");
+			stage.show();
+		} catch (IOException e) {
+			System.err.println("Error loading cart_ex.fxml: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+//    // You can add a method to initialise the data
+//    public void initializeData(String consumerId, String orderId, String items, String timestamp, String price) {
+//        consumerIdLabel.setText(consumerId);
+//        orderIdLabel.setText(orderId);
+//        itemsLabel.setText(items);
+//        timestampLabel.setText(timestamp);
+//        priceLabel.setText(price);
+//    }
+//
+//    public void getAccountDetails() {
+//        String nameString = co.bel.frontend.MainController.nameString;
+//        String apiUrl = "http://localhost:8080/ecom1/webapi/consumer/concon";
+//        String jsonInputString = "{\n" + "    \"phone_no\": \"" + nameString + "\",\n" + "}";
+//        
+//        try {
+//            // Make the first POST request
+//            String firstResponse = performPostRequest(apiUrl, jsonInputString);
+//
+//            // Process the first response if needed
+//
+//            // Make the second POST request
+//            String secondResponse = performPostRequest("http://localhost:8080/ecom1/webapi/consumer/getcon", "{\"consumer_id\": 1}");
+//
+//            // Process the second response
+//            Platform.runLater(() -> showAlert("Success", "POST request successful. Response:\n" + secondResponse, AlertType.INFORMATION));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            showAlert("Error", "Failed to perform POST request. Please try again.", AlertType.ERROR);
+//        }
+//    }
+//
+//    private String performPostRequest(String apiUrl, String jsonInput) throws IOException {
+//        URL url = new URL(apiUrl);
+//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//        connection.setRequestMethod("POST");
+//        connection.setRequestProperty("Content-Type", "application/json");
+//        connection.setDoOutput(true);
+//
+//        try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+//            byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
+//            outputStream.write(input, 0, input.length);
+//        }
+//
+//        int responseCode = connection.getResponseCode();
+//
+//        if (responseCode == HttpURLConnection.HTTP_OK) {
+//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+//                StringBuilder response = new StringBuilder();
+//                String line;
+//
+//                while ((line = reader.readLine()) != null) {
+//                    response.append(line);
+//                }
+//
+//                return response.toString().trim();
+//            }
+//        } else {
+//            System.out.println("Error: " + responseCode);
+//            throw new IOException("POST request failed. HTTP response code: " + responseCode);
+//        } 
+//    }
+//
+//    private void showAlert(String title, String content, AlertType alertType) {
+//        Alert alert = new Alert(alertType);
+//        alert.setTitle(title);
+//        alert.setHeaderText(null);
+//        alert.setContentText(content);
+//        alert.showAndWait();
+//    }
+//
+//    @FXML
+//    private void onGoBackClicked() {
+//        // Implement logic to go back to the homepage or perform other actions
+//        // For example, you can close the current stage
+//        Stage stage = (Stage) consumerIdLabel.getScene().getWindow();
+//        stage.close();
+//    }
+
+}
