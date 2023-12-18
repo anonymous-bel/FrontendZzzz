@@ -294,6 +294,23 @@ public class HomepageController implements Initializable {
 	        }
 	    }
 	
+	
+
+//	@FXML
+//	private void onCartMenuClicked(ActionEvent event) {
+//		try {
+//			System.out.println("Invoked the function");
+//			FXMLLoader loader = new FXMLLoader(getClass().getResource("cart_ex.fxml"));
+//			Parent root = loader.load();
+//
+//			Stage primaryStage = new Stage();
+//			primaryStage.setScene(new Scene(root));
+//			primaryStage.setTitle("Cart Details");
+//			primaryStage.show();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	@FXML
 	private void onCartMenuClicked(ActionEvent event) {
 		

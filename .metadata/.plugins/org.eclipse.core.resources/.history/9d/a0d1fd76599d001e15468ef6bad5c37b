@@ -23,7 +23,7 @@
          <Label prefHeight="17.0" prefWidth="637.0" text="Total Price: " />
       </HBox>
       <HBox>
-         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Back" />
+         <Button mnemonicParsing="false" onAction="#onGoBackClicked" prefHeight="25.0" prefWidth="64.0" text="Back" />
       </HBox>
       
    </children>
