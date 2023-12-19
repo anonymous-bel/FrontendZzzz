@@ -1,0 +1,75 @@
+package co.bel.frontend;
+
+public class OrderItem {
+	private int orderitem_id;
+
+	private Order order;
+	
+	private Consumer consumer;
+
+	private Item item_id;
+	
+	private int quantity;
+
+
+	
+	public OrderItem() {}
+	
+
+	public OrderItem(int orderId, Consumer consumer, Item item, int quantity2) {
+		// TODO Auto-generated constructor stub
+		order.setOrder_id(orderId);
+		
+		consumer = consumer;
+		
+		item_id = item;
+		
+		quantity = quantity2;
+	}
+
+
+	public int getOrderitem_id() {
+		return orderitem_id;
+	}
+
+	public void setOrderitem_id(int orderitem_id) {
+		this.orderitem_id = orderitem_id;
+	}
+
+	
+	public Order getOrder() {
+		return order;
+	}
+
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+
+	public Consumer getConsumer() {
+		return consumer;
+	}
+
+
+	public void setConsumer(Consumer consumer) {
+		this.consumer = consumer;
+	}
+
+
+	public Item getItem_id() {
+		return item_id;
+	}
+
+	public void setItem_id(Item item_id) {
+		this.item_id = item_id;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+}

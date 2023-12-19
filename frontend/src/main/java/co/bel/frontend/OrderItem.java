@@ -1,70 +1,66 @@
 package co.bel.frontend;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OrderItem {
-	private int orderitem_id;
+    private int orderitem_id;
+    private Order order;
+    private Consumer consumer;
+    private Item item_id;
+    private int quantity;
 
-	private Order order_id;
-	
-	private Consumer consumer_id;
+    public OrderItem() {}
 
-	private Item item_id;
-	
-	private int quantity;
+    // Constructor with parameters
+    public OrderItem(@JsonProperty("orderitem_id") int orderitem_id,
+            @JsonProperty("order_id") Order order,
+            @JsonProperty("consumer_id") Consumer consumer, // Match the JSON structure
+            @JsonProperty("item_id") Item item_id,
+            @JsonProperty("quantity") int quantity) {
+        this.orderitem_id = orderitem_id;
+        this.order = order;
+        this.consumer = consumer;
+        this.item_id = item_id;
+        this.quantity = quantity;
+    }
 
-	Order ord = new Order();
-	
-	public OrderItem() {}
-	
+    // Getters and Setters
+    public int getOrderitem_id() {
+        return orderitem_id;
+    }
 
-	public OrderItem(int orderId, Consumer consumer, Item item, int quantity2) {
-		// TODO Auto-generated constructor stub
-		ord.setOrder_id(orderId);
-		
-		consumer_id = consumer;
-		
-		item_id = item;
-		
-		quantity = quantity2;
-	}
+    public void setOrderitem_id(int orderitem_id) {
+        this.orderitem_id = orderitem_id;
+    }
 
+    public Order getOrder() {
+        return order;
+    }
 
-	public int getOrderitem_id() {
-		return orderitem_id;
-	}
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-	public void setOrderitem_id(int orderitem_id) {
-		this.orderitem_id = orderitem_id;
-	}
+    public Consumer getConsumer() {
+        return consumer;
+    }
 
-	public Order getOrder_id() {
-		return order_id;
-	}
+    public void setConsumer(Consumer consumer) {
+        this.consumer = consumer;
+    }
 
-	public void setOrder_id(Order order_id) {
-		this.order_id = order_id;
-	}
+    public Item getItem_id() {
+        return item_id;
+    }
 
-	public Consumer getConsumer_id() {
-		return consumer_id;
-	}
+    public void setItem_id(Item item_id) {
+        this.item_id = item_id;
+    }
 
-	public void setConsumer_id(Consumer consumer_id) {
-		this.consumer_id = consumer_id;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public Item getItem_id() {
-		return item_id;
-	}
-
-	public void setItem_id(Item item_id) {
-		this.item_id = item_id;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

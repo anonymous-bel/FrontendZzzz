@@ -32,6 +32,7 @@ public class MainPage extends Application {
             controller.loginButton.setOnAction(e -> {
             	if (controller.handlelogin()) {
                     openHomePage(primaryStage);
+                    
                 } else {
                     // Show an error message or handle the case where credentials are incorrect
                     System.out.println("Invalid credentials. Please try again.");
@@ -54,13 +55,13 @@ public class MainPage extends Application {
             // Load the FXML file and get the root node
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Homepage.fxml"));
             Parent root = loader.load();
-          HomepageController controller = loader.getController();
+            HomepageController controller = loader.getController();
 
             controller.initialize(null, null);
 
             // Create a scene with the loaded root node
             Scene homePageScene = new Scene(root);
-
+            
             // Set the second scene for the stage
             primaryStage.setScene(homePageScene);
             primaryStage.setTitle("E-shop");

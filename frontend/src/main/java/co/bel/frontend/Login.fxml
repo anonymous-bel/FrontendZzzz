@@ -28,7 +28,7 @@
                <VBox.margin>
                   <Insets left="200.0" right="200.0" />
                </VBox.margin></TextField>
-            <PasswordField fx:id="passwordField" promptText="Password" style="-fx-blend-mode: multiply;">
+            <PasswordField fx:id="passwordField" promptText="Password" onAction="#handlelogin" style="-fx-blend-mode: multiply;">
                <VBox.margin>
                   <Insets left="200.0" right="200.0" top="5.0" />
                </VBox.margin></PasswordField>
