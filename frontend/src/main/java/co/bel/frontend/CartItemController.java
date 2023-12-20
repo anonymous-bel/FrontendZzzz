@@ -19,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+
 
 
 public class CartItemController {
@@ -45,6 +47,17 @@ public class CartItemController {
             addTextToGrid(String.valueOf(cartItem.getQuantity()), 1, rowIndex);
             addTextToGrid("₹ " + String.valueOf(cartItem.getItem().getItem_price()), 2, rowIndex);
             addTextToGrid("₹ " + String.valueOf(cartItem.getQuantity() * cartItem.getItem().getItem_price()), 3, rowIndex);
+            
+            Button removeButton = new Button("Remove");
+            removeButton.setOnAction(event -> {
+				try {
+					handleRemoveItemClicked(cartItem, cartItems);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+            cartGridPane.add(removeButton, 4, rowIndex);
 
             rowIndex++;
         }
@@ -57,7 +70,67 @@ public class CartItemController {
         addTextToGrid("₹ " + String.valueOf(overallPrice), 3, rowIndex);
     }
 
-    private void addTextToGrid(String text, int columnIndex, int rowIndex) {
+    private void handleRemoveItemClicked(CartItem cartItem, List<CartItem> cartItems) throws IOException{
+		// TODO Auto-generated method stub
+    	if (cartItems != null) {
+          
+    		String apiUrl = "http://localhost:8080/ecom1/webapi/cart/removecartitem";
+    		int itemID = cartItem.getItem().getItem_id();
+    		int cartID = cartItem.getCart_id();
+
+    		String jsonInputString = "{\n" +
+    		        "    \"item_id\": " + itemID + ",\n" +
+    		        "    \"cart_id\": " + cartID + "\n" +
+    		        "}";
+    			
+    		try {
+				URL url = new URL(apiUrl);
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestMethod("POST");
+				connection.setRequestProperty("Content-Type", "application/json");
+				connection.setDoOutput(true);
+
+				try (OutputStream os = connection.getOutputStream()) {
+					byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+					os.write(input, 0, input.length);
+				}
+
+				int responseCode = connection.getResponseCode();
+				if (responseCode == HttpURLConnection.HTTP_OK) {
+					
+					System.out.println("Item_id: " + itemID + " Removed Successfully.");
+
+				}
+				if (responseCode == 204) {
+					System.out.println("moyee moyee");
+				} else {
+						// Handle error response
+					System.out.println("Error: " + responseCode);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+            
+    		cartItems.remove(cartItem);
+    		
+            // Call a method to refresh the display, for example:
+            refreshCartDisplay(cartItems);
+        }
+    }
+    
+	private void refreshCartDisplay(List<CartItem> cartItems) {
+		// TODO Auto-generated method stub
+		cartGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) > 0);
+
+	    // Display the updated cart items
+	    try {
+	        displayCartItems(cartItems);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	private void addTextToGrid(String text, int columnIndex, int rowIndex) {
         Text newText = new Text(text);
         newText.wrappingWidthProperty().setValue(100); // Adjust the wrapping width as needed
         cartGridPane.add(newText, columnIndex, rowIndex);
@@ -116,6 +189,18 @@ public class CartItemController {
 		
 		List<CartItem> cartItems = fetchDataFromUrl("http://localhost:8080/ecom1/webapi/cart/uniqord",
 				getConsumerId());
+		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String str = objectMapper.writeValueAsString(cartItems);
+//		
+////		System.out.println(str);
+//		List<CartItem> it = objectMapper.readValue(str, objectMapper.getTypeFactory().constructCollectionType(List.class, CartItem.class));
+//		
+//		for (CartItem x : it) {
+//            System.out.println("Item ID: " + x.getItem().getItem_id());
+//            System.out.println("Cart ID: " + x.getCart_id());
+//            System.out.println();
+//        }
 		
 		Stage currentStage = null;
 		

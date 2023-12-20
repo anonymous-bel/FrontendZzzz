@@ -13,7 +13,8 @@ public class MainPage extends Application {
         launch(args);
     }
 
-    @Override
+    @SuppressWarnings("exports")
+	@Override
     public void start(Stage primaryStage) {
     	try {
     		FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
@@ -49,7 +50,8 @@ public class MainPage extends Application {
     }
     
 
-    public void openHomePage(Stage primaryStage) {
+    @SuppressWarnings("exports")
+	public void openHomePage(Stage primaryStage) {
         
     	try {
             // Load the FXML file and get the root node

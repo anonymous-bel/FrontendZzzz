@@ -6,24 +6,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.EventObject;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,13 +24,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
@@ -49,7 +38,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -117,8 +105,7 @@ public class HomepageController implements Initializable {
 
 	@FXML
 	private int consumerId;
-//    @FXML
-//    private Label statusLabel1;
+
 	@FXML
 	private Label consumerIdLabel1;
 
@@ -157,10 +144,7 @@ public class HomepageController implements Initializable {
 		String jsonResponse = sendGetRequest(apiUrl);
 
 		if (jsonResponse != null) {
-			// Parse JSON and create UI components for each item
-			// Replace this part with actual JSON parsing logic based on your project
-			// structure
-			// Assuming there's a class Item representing each item
+			
 			List<Item> items = parseJsonResponse(jsonResponse);
 
 			createItemContainer(items);
@@ -667,8 +651,6 @@ public class HomepageController implements Initializable {
 	
 	@FXML
     private MenuItem logoutMenuItem;
-
-	private EventObject event;
 
     @FXML
     private void handleLogout(ActionEvent event) {
