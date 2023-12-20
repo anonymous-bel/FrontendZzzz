@@ -2,17 +2,22 @@ package co.bel.frontend;
 
 public class CartItem {
 
-
 	private int cart_id;
 	
-
 	private Consumer consumer;
 	
-
 	private Item item;
-	
-	
+		
 	private int quantity;
+	
+	public CartItem() {}
+	
+	public CartItem(int cartId, Consumer consumer2, Item item2, int quantity2) {
+		cart_id = cartId;
+		consumer = consumer2;
+		item = item2;
+		quantity = quantity2;
+	}
 	
 	public Item getItem() {
 		return item;

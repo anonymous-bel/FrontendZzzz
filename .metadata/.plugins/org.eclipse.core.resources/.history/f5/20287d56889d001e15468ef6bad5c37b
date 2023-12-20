@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="444.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.bel.frontend.CartItemController">
+
+    <BorderPane prefHeight="444.0" prefWidth="600.0">
+        <center>
+            <VBox fx:id="OrderItemsContainer" prefHeight="367.0" prefWidth="596.0" spacing="10">
+                <GridPane fx:id="cartGridPane">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <Text text="Order ID" wrappingWidth="150.390625" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Text text="Product Name" wrappingWidth="147.580078125" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Text text="Quantity" wrappingWidth="147.580078125" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Text text="Price" wrappingWidth="147.6171875" GridPane.columnIndex="2" />
+                    <Text text="Total" wrappingWidth="147.396484375" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+                </GridPane>
+            <BorderPane.margin>
+               <Insets bottom="10.0" />
+            </BorderPane.margin>
+
+                <!-- Placeholder for dynamic content -->
+            </VBox>
+        </center>
+      <bottom>
+         <Button mnemonicParsing="false" text="Check Out" BorderPane.alignment="CENTER" />
+      </bottom>
+        <bottom>
+            <Button mnemonicParsing="false" onAction="#handleCheckoutClicked" text="Checkout" BorderPane.alignment="CENTER">
+                <BorderPane.margin>
+                    <Insets bottom="10.0" />
+                </BorderPane.margin>
+            </Button>
+        </bottom>
+        
+    </BorderPane>
+</AnchorPane>

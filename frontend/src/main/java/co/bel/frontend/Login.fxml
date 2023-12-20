@@ -12,9 +12,9 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.bel.frontend.MainController">
    <children>
-      <VBox layoutX="6.0" prefHeight="444.0" prefWidth="600.0" spacing="10.0">
+      <VBox layoutX="-1.0" prefHeight="444.0" prefWidth="600.0" spacing="10.0">
          <children>
-            <Label alignment="TOP_CENTER" prefHeight="101.0" prefWidth="593.0" text="User Login" textAlignment="CENTER" textFill="#787c83">
+            <Label alignment="TOP_CENTER" prefHeight="101.0" prefWidth="602.0" text="User Login" textAlignment="CENTER" textFill="#787c83">
                <VBox.margin>
                   <Insets bottom="10.0" top="45.0" />
                </VBox.margin>
@@ -28,7 +28,7 @@
                <VBox.margin>
                   <Insets left="200.0" right="200.0" />
                </VBox.margin></TextField>
-            <PasswordField fx:id="passwordField" promptText="Password" style="-fx-blend-mode: multiply;">
+            <PasswordField fx:id="passwordField" onAction="#handlelogin" promptText="Password" style="-fx-blend-mode: multiply;">
                <VBox.margin>
                   <Insets left="200.0" right="200.0" top="5.0" />
                </VBox.margin></PasswordField>

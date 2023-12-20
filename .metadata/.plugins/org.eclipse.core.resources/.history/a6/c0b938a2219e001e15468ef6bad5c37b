@@ -1,0 +1,106 @@
+package co.bel.frontend;
+
+public class OrderItem {
+	private int orderitem_id;
+    private int quantity;
+    private Order order;  // Assuming you have an 'Order' class
+    private Item item_id;  // Assuming you have an 'Item' class
+    private Consumer consumer;  // New class for consumer_id
+
+    // getters and setters
+
+    // Assuming you have a Consumer class for "consumer_id"
+    public static class Consumer {
+        public int getConsumer_id() {
+			return consumer_id;
+		}
+		public void setConsumer_id(int consumer_id) {
+			this.consumer_id = consumer_id;
+		}
+		public String getConsumer_name() {
+			return consumer_name;
+		}
+		public void setConsumer_name(String consumer_name) {
+			this.consumer_name = consumer_name;
+		}
+		public String getEmail_id() {
+			return email_id;
+		}
+		public void setEmail_id(String email_id) {
+			this.email_id = email_id;
+		}
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
+		public String getPhone_no() {
+			return phone_no;
+		}
+		public void setPhone_no(String phone_no) {
+			this.phone_no = phone_no;
+		}
+		private int consumer_id;
+        private String consumer_name;
+        private String email_id;
+        private String password;
+        private String phone_no;
+
+        // getters and setters
+    }
+
+    // Assuming you have an Item class for "item_id"
+    public static class Item {
+        private int item_id;
+        private String item_name;
+        private double item_price;
+		public int getItem_id() {
+			return item_id;
+		}
+		public void setItem_id(int item_id) {
+			this.item_id = item_id;
+		}
+		public String getItem_name() {
+			return item_name;
+		}
+		public void setItem_name(String item_name) {
+			this.item_name = item_name;
+		}
+		public double getItem_price() {
+			return item_price;
+		}
+		public void setItem_price(double item_price) {
+			this.item_price = item_price;
+		}
+
+        // getters and setters
+    }
+
+    // Assuming you have an Order class for "order"
+    public static class Order {
+        private Consumer consumer_id;  // Reference to Consumer
+        private int order_id;
+        private double total_price;
+		public Consumer getConsumer_id() {
+			return consumer_id;
+		}
+		public void setConsumer_id(Consumer consumer_id) {
+			this.consumer_id = consumer_id;
+		}
+		public int getOrder_id() {
+			return order_id;
+		}
+		public void setOrder_id(int order_id) {
+			this.order_id = order_id;
+		}
+		public double getTotal_price() {
+			return total_price;
+		}
+		public void setTotal_price(double total_price) {
+			this.total_price = total_price;
+		}
+
+        // getters and setters
+    }
+}

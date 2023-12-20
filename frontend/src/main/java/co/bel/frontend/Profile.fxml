@@ -5,22 +5,38 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" prefHeight="444.0" prefWidth="600.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.bel.frontend.MainController">
-    <GridPane alignment="CENTER" prefHeight="94.0" prefWidth="417.0">
-        <Label prefHeight="17.0" prefWidth="168.0" text="Consumer ID:" />
-        <Label fx:id="consumerIdLabel1" prefHeight="17.0" prefWidth="99.0" textAlignment="CENTER" GridPane.columnIndex="1" />
+    <GridPane alignment="CENTER" prefHeight="105.0" prefWidth="407.0">
+        <Label prefHeight="17.0" prefWidth="168.0" text="Consumer ID:" textFill="#787c83" underline="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+        <Label fx:id="consumerIdLabel1" prefHeight="17.0" prefWidth="126.0" textAlignment="CENTER" GridPane.columnIndex="1" />
 
-        <Label prefHeight="17.0" prefWidth="167.0" text="Consumer Name:" GridPane.rowIndex="1" />
-        <Label fx:id="consumerNameLabel" prefHeight="17.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label prefHeight="17.0" prefWidth="167.0" text="Consumer Name:" textFill="#787c83" underline="true" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+        <Label fx:id="consumerNameLabel" prefHeight="17.0" prefWidth="126.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Email ID:" GridPane.rowIndex="3" />
-        <Label fx:id="emailIdLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label prefHeight="21.0" prefWidth="168.0" text="Email ID:" textFill="#787c83" underline="true" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+        <Label fx:id="emailIdLabel" prefHeight="17.0" prefWidth="128.0" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label text="Password:" GridPane.rowIndex="5" />
-        <Label fx:id="passwordLabel" prefHeight="17.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label prefHeight="21.0" prefWidth="167.0" text="Password:" textFill="#787c83" underline="true" GridPane.rowIndex="5">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+        <Label fx:id="passwordLabel" prefHeight="17.0" prefWidth="126.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-        <Label text="Phone Number:" GridPane.rowIndex="6" />
+        <Label prefHeight="21.0" prefWidth="167.0" text="Phone Number:" textFill="#787c83" underline="true" GridPane.rowIndex="6">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
         <Label fx:id="phoneNoLabel" prefHeight="17.0" prefWidth="129.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <columnConstraints>
          <ColumnConstraints />

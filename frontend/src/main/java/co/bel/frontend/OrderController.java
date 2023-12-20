@@ -1,115 +1,40 @@
 package co.bel.frontend;
 
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import java.util.List;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 public class OrderController {
+	
+	@FXML
+    private GridPane ordGridPane;
 
-    @FXML
-    private Text consumerIdLabel;
+	@FXML
+    private ScrollPane scrollPane;
 
-    @FXML
-    private Text orderIdLabel;
+	public void displayOrderItems(List<OrderItem> ordItems) {
+		// TODO Auto-generated method stub
+		int rowIndex = 1; // Start from row 1 as row 0 is for column headers
+	      
+        for (OrderItem ord : ordItems) {
+            addTextToGrid(String.valueOf(ord.getOrder().getOrder_id()), 0, rowIndex);
+            addTextToGrid(String.valueOf(ord.getItem_id().getItem_name()), 1, rowIndex);
+            addTextToGrid(String.valueOf(ord.getQuantity()), 2, rowIndex);
+            addTextToGrid("₹ " + String.valueOf(ord.getItem_id().getItem_price()), 3, rowIndex);
+            addTextToGrid("₹ " + String.valueOf(ord.getQuantity() * ord.getItem_id().getItem_price()), 4, rowIndex);
 
-    @FXML
-    private Text itemsLabel;
-
-    @FXML
-    private Text timestampLabel;
-
-    @FXML
-    private Text priceLabel;
-
-    @FXML
-    private int consumerId;
-
-    // You can add a method to initialise the data
-    public void initializeData(String consumerId, String orderId, String items, String timestamp, String price) {
-        consumerIdLabel.setText(consumerId);
-        orderIdLabel.setText(orderId);
-        itemsLabel.setText(items);
-        timestampLabel.setText(timestamp);
-        priceLabel.setText(price);
-    }
-
-    public void getAccountDetails() {
-        String nameString = co.bel.frontend.MainController.nameString;
-        String apiUrl = "http://localhost:8080/ecom1/webapi/consumer/concon";
-        String jsonInputString = "{\n" + "    \"phone_no\": \"" + nameString + "\",\n" + "}";
-        
-        try {
-            // Make the first POST request
-            String firstResponse = performPostRequest(apiUrl, jsonInputString);
-
-            // Process the first response if needed
-
-            // Make the second POST request
-            String secondResponse = performPostRequest("http://localhost:8080/ecom1/webapi/consumer/getcon", "{\"consumer_id\": 1}");
-
-            // Process the second response
-            Platform.runLater(() -> showAlert("Success", "POST request successful. Response:\n" + secondResponse, AlertType.INFORMATION));
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Error", "Failed to perform POST request. Please try again.", AlertType.ERROR);
-        }
-    }
-
-    private String performPostRequest(String apiUrl, String jsonInput) throws IOException {
-        URL url = new URL(apiUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setDoOutput(true);
-
-        try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
-            byte[] input = jsonInput.getBytes(StandardCharsets.UTF_8);
-            outputStream.write(input, 0, input.length);
+            rowIndex++;
         }
 
-        int responseCode = connection.getResponseCode();
-
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                StringBuilder response = new StringBuilder();
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-
-                return response.toString().trim();
-            }
-        } else {
-            System.out.println("Error: " + responseCode);
-            throw new IOException("POST request failed. HTTP response code: " + responseCode);
-        } 
-    }
-
-    private void showAlert(String title, String content, AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void onGoBackClicked() {
-        // Implement logic to go back to the homepage or perform other actions
-        // For example, you can close the current stage
-        Stage stage = (Stage) consumerIdLabel.getScene().getWindow();
-        stage.close();
+	}
+	
+	private void addTextToGrid(String text, int columnIndex, int rowIndex) {
+        Text newText = new Text(text);
+        newText.wrappingWidthProperty().setValue(100); // Adjust the wrapping width as needed
+        ordGridPane.add(newText, columnIndex, rowIndex);
+        System.out.println("Text added to GridPane: " + text + ", Column: " + columnIndex + ", Row: " + rowIndex);
     }
 }
