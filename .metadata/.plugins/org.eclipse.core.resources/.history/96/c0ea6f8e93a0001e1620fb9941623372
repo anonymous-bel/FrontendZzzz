@@ -190,6 +190,18 @@ public class CartItemController {
 		List<CartItem> cartItems = fetchDataFromUrl("http://localhost:8080/ecom1/webapi/cart/uniqord",
 				getConsumerId());
 		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String str = objectMapper.writeValueAsString(cartItems);
+//		
+////		System.out.println(str);
+//		List<CartItem> it = objectMapper.readValue(str, objectMapper.getTypeFactory().constructCollectionType(List.class, CartItem.class));
+//		
+//		for (CartItem x : it) {
+//            System.out.println("Item ID: " + x.getItem().getItem_id());
+//            System.out.println("Cart ID: " + x.getCart_id());
+//            System.out.println();
+//        }
+		
 		Stage currentStage = null;
 		
 		javafx.collections.ObservableList<javafx.stage.Window> stageList = javafx.stage.Window.getWindows();

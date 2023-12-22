@@ -15,8 +15,6 @@ import java.util.ResourceBundle;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.XML;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -346,6 +344,7 @@ public class HomepageController implements Initializable {
 			// of CartItems
 			List<CartItem> cartItems = fetchDataFromUrl("http://localhost:8080/ecom1/webapi/cart/uniqord",
 					getConsumerId());
+			System.out.println(cartItems);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("cart_ex.fxml"));
 			Parent root = loader.load();
 			CartItemController controller = loader.getController();
@@ -398,18 +397,10 @@ public class HomepageController implements Initializable {
 
 				// Print the response for debugging purposes
 				System.out.println(response);
-//				String xmlData = response.toString();
-//				System.out.println(xmlData);
-//
-//		        // Convert XML to JSON
-//		        String jsonData = convertXmlToJson(xmlData);
-//		        System.out.println(jsonData);
-
 
 				// Parse the JSON response and populate the list of CartItems
 				// (You need to implement this parsing logic based on your JSON structure)
 				cartItems = parseJsonResponse1(response.toString());
-//				System.out.println(cartItems);
 			}
 
 			// Check the response code for success
@@ -424,19 +415,12 @@ public class HomepageController implements Initializable {
 
 		return cartItems;
 	}
-	
-//	private static String convertXmlToJson(String xmlData) {
-//        JSONObject jsonObject = XML.toJSONObject(xmlData);
-//        return jsonObject.toString();
-//    }
 
 	private List<CartItem> parseJsonResponse1(String jsonResponse) {
 		List<CartItem> cartItems = new ArrayList<>();
-		
 
 		try {
 			JSONArray jsonArray = new JSONArray(jsonResponse);
-			System.out.println(jsonArray);
 
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject cartItemJson = jsonArray.getJSONObject(i);

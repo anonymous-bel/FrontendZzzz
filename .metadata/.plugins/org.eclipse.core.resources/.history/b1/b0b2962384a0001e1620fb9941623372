@@ -397,19 +397,18 @@ public class HomepageController implements Initializable {
 				}
 
 				// Print the response for debugging purposes
-				System.out.println(response);
-//				String xmlData = response.toString();
-//				System.out.println(xmlData);
-//
-//		        // Convert XML to JSON
-//		        String jsonData = convertXmlToJson(xmlData);
-//		        System.out.println(jsonData);
+//				System.out.println(response);
+				String xmlData = response.toString();
 
+		        // Convert XML to JSON
+		        String jsonData = convertXmlToJson(xmlData);
+
+		        // Now you can parse the JSON data
+//		        parseJsonResponse(jsonData);
 
 				// Parse the JSON response and populate the list of CartItems
 				// (You need to implement this parsing logic based on your JSON structure)
-				cartItems = parseJsonResponse1(response.toString());
-//				System.out.println(cartItems);
+				cartItems = parseJsonResponse1(jsonData);
 			}
 
 			// Check the response code for success
@@ -425,10 +424,10 @@ public class HomepageController implements Initializable {
 		return cartItems;
 	}
 	
-//	private static String convertXmlToJson(String xmlData) {
-//        JSONObject jsonObject = XML.toJSONObject(xmlData);
-//        return jsonObject.toString();
-//    }
+	private static String convertXmlToJson(String xmlData) {
+        JSONObject jsonObject = XML.toJSONObject(xmlData);
+        return jsonObject.toString();
+    }
 
 	private List<CartItem> parseJsonResponse1(String jsonResponse) {
 		List<CartItem> cartItems = new ArrayList<>();
@@ -436,7 +435,6 @@ public class HomepageController implements Initializable {
 
 		try {
 			JSONArray jsonArray = new JSONArray(jsonResponse);
-			System.out.println(jsonArray);
 
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject cartItemJson = jsonArray.getJSONObject(i);

@@ -398,11 +398,11 @@ public class HomepageController implements Initializable {
 
 				// Print the response for debugging purposes
 				System.out.println(response);
-//				String xmlData = response.toString();
+				String xmlData = response.toString();
 //				System.out.println(xmlData);
 //
 //		        // Convert XML to JSON
-//		        String jsonData = convertXmlToJson(xmlData);
+		        String jsonData = convertXmlToJson(xmlData);
 //		        System.out.println(jsonData);
 
 
@@ -425,10 +425,10 @@ public class HomepageController implements Initializable {
 		return cartItems;
 	}
 	
-//	private static String convertXmlToJson(String xmlData) {
-//        JSONObject jsonObject = XML.toJSONObject(xmlData);
-//        return jsonObject.toString();
-//    }
+	private static String convertXmlToJson(String xmlData) {
+        JSONObject jsonObject = XML.toJSONObject(xmlData);
+        return jsonObject.toString();
+    }
 
 	private List<CartItem> parseJsonResponse1(String jsonResponse) {
 		List<CartItem> cartItems = new ArrayList<>();

@@ -397,7 +397,7 @@ public class HomepageController implements Initializable {
 				}
 
 				// Print the response for debugging purposes
-				System.out.println(response);
+//				System.out.println(response);
 //				String xmlData = response.toString();
 //				System.out.println(xmlData);
 //

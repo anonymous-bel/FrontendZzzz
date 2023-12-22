@@ -397,7 +397,7 @@ public class HomepageController implements Initializable {
 				}
 
 				// Print the response for debugging purposes
-				System.out.println(response);
+//				System.out.println(response);
 //				String xmlData = response.toString();
 //				System.out.println(xmlData);
 //
@@ -409,7 +409,7 @@ public class HomepageController implements Initializable {
 				// Parse the JSON response and populate the list of CartItems
 				// (You need to implement this parsing logic based on your JSON structure)
 				cartItems = parseJsonResponse1(response.toString());
-//				System.out.println(cartItems);
+				System.out.println(cartItems);
 			}
 
 			// Check the response code for success

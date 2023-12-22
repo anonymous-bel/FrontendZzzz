@@ -29,4 +29,5 @@
     <fullyQualifiedTypeName name="java.awt.Button"/>
     <fullyQualifiedTypeName name="javafx.scene.control.Button"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
+    <fullyQualifiedTypeName name="org.json.XML"/>
 </qualifiedTypeNameHistroy>
